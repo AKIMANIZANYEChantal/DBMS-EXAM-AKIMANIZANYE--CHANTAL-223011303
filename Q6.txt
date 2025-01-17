@@ -1,0 +1,179 @@
+
+mysql> create database PARTB;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use PARTB;
+Database changed
+mysql> create table DEPARTMENTS(id int(3),fname char(20), lname char(13), gender char(7), address char(12));
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> insert into DEPARTMENTS(id,fname,lname,gender,address,) values('1','chania','keza','F','musanze');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') values('1','chania','keza','F','musanze')' at line 1
+mysql> insert into DEPARTMENTS(id,fname,lname,gender,address) values ('1','chania','keza','F','musanze');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into DEPARTMENTS(id,fname,lname,gender,address) values ('2','emmy','muhizi','M','huye');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into DEPARTMENTS(id,fname,lname,gender,address) values ('3','claude','muhire','M','gatsibo');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into DEPARTMENTS(id,fname,lname,gender,address) values ('4','alene','ineza','F','gakenke');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into DEPARTMENTS(id,fname,lname,gender,address) values ('5','clement','cyiza','M','nyabihu');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from DEPARTMENTS;
++------+---------+--------+--------+---------+
+| id   | fname   | lname  | gender | address |
++------+---------+--------+--------+---------+
+|    1 | chania  | keza   | F      | musanze |
+|    2 | emmy    | muhizi | M      | huye    |
+|    3 | claude  | muhire | M      | gatsibo |
+|    4 | alene   | ineza  | F      | gakenke |
+|    5 | clement | cyiza  | M      | nyabihu |
++------+---------+--------+--------+---------+
+5 rows in set (0.02 sec)
+
+mysql> create table  EMPLOYEES(id int(3),emp_fname char(20),emp_lname,tel int(15),address char(100));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',tel int(15),address char(100))' at line 1
+mysql> create table  EMPLOYEES(id int(3),emp_fname char(20), emp_lname char(12), tel int(15), address char(100));
+Query OK, 0 rows affected, 2 warnings (0.01 sec)
+
+mysql> insert into EMPOLOYEES(id,emp_fname,emp_lname,tel,address) values ('1','jesia','keza','+250 789609578');
+ERROR 1146 (42S02): Table 'partb.empoloyees' doesn't exist
+mysql> insert into EMPLOYEES(id,emp_fname,emp_lname,tel,address) values ('1','jesia','keza','+250 789609578');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into EMPLOYEES(id,emp_fname,emp_lname,tel,address) values ('1','jesia','keza','+250 789609578','musanze');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into EMPLOYEES(id,emp_fname,emp_lname,tel,address) values ('2','espe','muneza','+250 789678578','byangabo');
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> insert into EMPLOYEES(id,emp_fname,emp_lname,tel,address) values ('3','kelie','ihirwe','+250 789678768','tumba');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into EMPLOYEES(id,emp_fname,emp_lname,tel,address) values ('4','gabie','shema','+250 789678744','kigali');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into EMPLOYEES(id,emp_fname,emp_lname,tel,address) values ('5','desire','shami','+250 789678746','gisenyi');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> select*from EMPLOYEES;
++------+-----------+-----------+------+----------+
+| id   | emp_fname | emp_lname | tel  | address  |
++------+-----------+-----------+------+----------+
+|    1 | jesia     | keza      |  250 | musanze  |
+|    2 | espe      | muneza    |  250 | byangabo |
+|    3 | kelie     | ihirwe    |  250 | tumba    |
+|    4 | gabie     | shema     |  250 | kigali   |
+|    5 | desire    | shami     |  250 | gisenyi  |
++------+-----------+-----------+------+----------+
+5 rows in set (0.00 sec)
+mysql> select*from DEPARTMENTS left join EMPLOYEES on DEPARTMENTS.fnames="EMPLOYEES.emp_fname";
+ERROR 1054 (42S22): Unknown column 'DEPARTMENTS.fnames' in 'on clause'
+mysql> select*from DEPARTMENTS left join EMPLOYEES on DEPARTMENTS.fname="EMPLOYEES.emp_fname";
++------+---------+--------+--------+---------+------+-----------+-----------+------+---------+
+| id   | fname   | lname  | gender | address | id   | emp_fname | emp_lname | tel  | address |
++------+---------+--------+--------+---------+------+-----------+-----------+------+---------+
+|    1 | chania  | keza   | F      | musanze | NULL | NULL      | NULL      | NULL | NULL    |
+|    2 | emmy    | muhizi | M      | huye    | NULL | NULL      | NULL      | NULL | NULL    |
+|    3 | claude  | muhire | M      | gatsibo | NULL | NULL      | NULL      | NULL | NULL    |
+|    4 | alene   | ineza  | F      | gakenke | NULL | NULL      | NULL      | NULL | NULL    |
+|    5 | clement | cyiza  | M      | nyabihu | NULL | NULL      | NULL      | NULL | NULL    |
++------+---------+--------+--------+---------+------+-----------+-----------+------+---------+
+5 rows in set (0.03 sec)
+
+mysql> select*from DEPARTMENTS right join EMPLOYEES on DEPARTMENTS.fname="EMPLOYEES.emp_fname";
++------+-------+-------+--------+---------+------+-----------+-----------+------+----------+
+| id   | fname | lname | gender | address | id   | emp_fname | emp_lname | tel  | address  |
++------+-------+-------+--------+---------+------+-----------+-----------+------+----------+
+| NULL | NULL  | NULL  | NULL   | NULL    |    1 | jesia     | keza      |  250 | musanze  |
+| NULL | NULL  | NULL  | NULL   | NULL    |    2 | espe      | muneza    |  250 | byangabo |
+| NULL | NULL  | NULL  | NULL   | NULL    |    3 | kelie     | ihirwe    |  250 | tumba    |
+| NULL | NULL  | NULL  | NULL   | NULL    |    4 | gabie     | shema     |  250 | kigali   |
+| NULL | NULL  | NULL  | NULL   | NULL    |    5 | desire    | shami     |  250 | gisenyi  |
++------+-------+-------+--------+---------+------+-----------+-----------+------+----------+
+5 rows in set (0.02 sec)
+
+mysql> create database question7;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> use question7;
+Database changed
+mysql> create table STUDENT(studentId varchar(5), fullnames varchar(25), gender varchar(6),age int(2),department varchar(30));
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+mysql> insert into STUDENT(studentId,fullnames,gender,age,department) values('1','keza amerie','F','23','BIT');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into STUDENT(studentId,fullnames,gender,age,department) values('1','Gwiza mike','M','20','TLM');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into STUDENT(studentId,fullnames,gender,age,department) values('3','shami claude','M','21','CMCS');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into STUDENT(studentId,fullnames,gender,age,department) values('4','shema anne','F','19','cass');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into STUDENT(studentId,fullnames,gender,age,department) values('5','gashema emmy','m','26','cbe');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  insert into STUDENT(studentId,fullnames,gender,age,department) values('2','Gwiza mike','M','20','TLM');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  insert into STUDENT(studentId,fullnames,gender,age,department) values('6','Gwiza philomene','F','18','sob');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from STUDENT;
++-----------+-----------------+--------+------+------------+
+| studentId | fullnames       | gender | age  | department |
++-----------+-----------------+--------+------+------------+
+| 1         | keza amerie     | F      |   23 | BIT        |
+| 1         | Gwiza mike      | M      |   20 | TLM        |
+| 3         | shami claude    | M      |   21 | CMCS       |
+| 4         | shema anne      | F      |   19 | cass       |
+| 5         | gashema emmy    | m      |   26 | cbe        |
+| 2         | Gwiza mike      | M      |   20 | TLM        |
+| 6         | Gwiza philomene | F      |   18 | sob        |
++-----------+-----------------+--------+------+------------+
+7 rows in set (0.01 sec)
+
+mysql> select*from STUDENT where gender="F";
++-----------+-----------------+--------+------+------------+
+| studentId | fullnames       | gender | age  | department |
++-----------+-----------------+--------+------+------------+
+| 1         | keza amerie     | F      |   23 | BIT        |
+| 4         | shema anne      | F      |   19 | cass       |
+| 6         | Gwiza philomene | F      |   18 | sob        |
++-----------+-----------------+--------+------+------------+
+3 rows in set (0.01 sec)
+
+mysql> select*from STUDENT where gender="M";
++-----------+--------------+--------+------+------------+
+| studentId | fullnames    | gender | age  | department |
++-----------+--------------+--------+------+------------+
+| 1         | Gwiza mike   | M      |   20 | TLM        |
+| 3         | shami claude | M      |   21 | CMCS       |
+| 5         | gashema emmy | m      |   26 | cbe        |
+| 2         | Gwiza mike   | M      |   20 | TLM        |
++-----------+--------------+--------+------+------------+
+4 rows in set (0.00 sec)
+
+mysql> delete*from STUDENT where age<20;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*from STUDENT where age<20' at line 1
+mysql> delete from STUDENT where age<20;
+Query OK, 2 rows affected (0.02 sec)
+
+mysql> select*from STUDENT;
++-----------+--------------+--------+------+------------+
+| studentId | fullnames    | gender | age  | department |
++-----------+--------------+--------+------+------------+
+| 1         | keza amerie  | F      |   23 | BIT        |
+| 1         | Gwiza mike   | M      |   20 | TLM        |
+| 3         | shami claude | M      |   21 | CMCS       |
+| 5         | gashema emmy | m      |   26 | cbe        |
+| 2         | Gwiza mike   | M      |   20 | TLM        |
++-----------+--------------+--------+------+------------+
+5 rows in set (0.00 sec)

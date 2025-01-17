@@ -1,0 +1,91 @@
+MariaDB [exam]> create table sales(saleNo int(4)primary key auto_increment,salesname varchar(255),Branch varchar(255),saleamount int(4),DOB varchar(255));
+Query OK, 0 rows affected (0.028 sec)
+
+MariaDB [exam]> desc sales;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| saleNo     | int(4)       | NO   | PRI | NULL    | auto_increment |
+| salesname  | varchar(255) | YES  |     | NULL    |                |
+| Branch     | varchar(255) | YES  |     | NULL    |                |
+| saleamount | int(4)       | YES  |     | NULL    |                |
+| DOB        | varchar(255) | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.026 sec)
+
+MariaDB [exam]> insert into sales values('',"nkuranga james","NYAGATARE",25000,"21-DEC-2009");
+Query OK, 1 row affected, 1 warning (0.014 sec)
+
+MariaDB [exam]> insert into sales values('',"KARAGWA ABUDUL","NYAMAGABE",30000,"2-DEC-2010");
+Query OK, 1 row affected, 1 warning (0.015 sec)
+
+MariaDB [exam]> insert into sales values('',"KALIMA EVARISTE","KIGALI",35000,"22-NOV-2011");
+Query OK, 1 row affected, 1 warning (0.016 sec)
+
+MariaDB [exam]> insert into sales values('',"MUHIRE INNOCENT","NYANZA",40000,"2-JAN-2005");
+Query OK, 1 row affected, 1 warning (0.004 sec)
+
+MariaDB [exam]> insert into sales values('',"KAGABO INNOCENT","HUYE",45000,"7-JUL-2004");
+Query OK, 1 row affected, 1 warning (0.004 sec)
+
+MariaDB [exam]> SELECT * FROM sales;
++--------+-----------------+-----------+------------+-------------+
+| saleNo | salesname       | Branch    | saleamount | DOB         |
++--------+-----------------+-----------+------------+-------------+
+|      1 | nkuranga james  | NYAGATARE |      25000 | 21-DEC-2009 |
+|      2 | KARAGWA ABUDUL  | NYAMAGABE |      30000 | 2-DEC-2010  |
+|      3 | KALIMA EVARISTE | KIGALI    |      35000 | 22-NOV-2011 |
+|      4 | MUHIRE INNOCENT | NYANZA    |      40000 | 2-JAN-2005  |
+|      5 | KAGABO INNOCENT | HUYE      |      45000 | 7-JUL-2004  |
++--------+-----------------+-----------+------------+-------------+
+5 rows in set (0.001 sec)
+
+MariaDB [exam]> select SUM(saleamount) from sales;
++-----------------+
+| SUM(saleamount) |
++-----------------+
+|          175000 |
++-----------------+
+1 row in set (0.002 sec)
+
+MariaDB [exam]> select AVG(saleamount) from sales;
++-----------------+
+| AVG(saleamount) |
++-----------------+
+|      35000.0000 |
++-----------------+
+1 row in set (0.001 sec)
+
+MariaDB [exam]> select salesname,DOB from sales where DOB="21-DEC-2009";
++----------------+-------------+
+| salesname      | DOB         |
++----------------+-------------+
+| nkuranga james | 21-DEC-2009 |
++----------------+-------------+
+1 row in set (0.001 sec)
+
+MariaDB [exam]> select salesname,DOB from sales ORDER BY DOB ASC;
++-----------------+-------------+
+| salesname       | DOB         |
++-----------------+-------------+
+| KARAGWA ABUDUL  | 2-DEC-2010  |
+| MUHIRE INNOCENT | 2-JAN-2005  |
+| nkuranga james  | 21-DEC-2009 |
+| KALIMA EVARISTE | 22-NOV-2011 |
+| KAGABO INNOCENT | 7-JUL-2004  |
++-----------------+-------------+
+5 rows in set (0.001 sec)
+
+MariaDB [exam]> select salesname,DOB from sales ORDER BY DOB DESC;
++-----------------+-------------+
+| salesname       | DOB         |
++-----------------+-------------+
+| KAGABO INNOCENT | 7-JUL-2004  |
+| KALIMA EVARISTE | 22-NOV-2011 |
+| nkuranga james  | 21-DEC-2009 |
+| MUHIRE INNOCENT | 2-JAN-2005  |
+| KARAGWA ABUDUL  | 2-DEC-2010  |
++-----------------+-------------+
+5 rows in set (0.001 sec)
+
+MariaDB [exam]>

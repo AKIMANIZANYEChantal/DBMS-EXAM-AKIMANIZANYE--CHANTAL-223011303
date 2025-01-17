@@ -1,0 +1,96 @@
+
+mysql> create database q9;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use q9;
+Database changed
+mysql> create table EMPLOYEES (emp_id int(3),f_name varchar(20),l_name varchar(23),email varchar(17),telno varchar(15),hire_date date,job_id int(23),salary int(12),commission_pct int(10),manager_id int(6),department varchar(24));
+Query OK, 0 rows affected, 5 warnings (0.03 sec)
+
+mysql> insert into EMPLOYEES(emp_id,F_name,L_name ,email,phone_number,hire_date,job_id,salary,commission_pct,manager_id ,department_id) values ('1','anne','keza','keza@gmail.com','078686787','12/1/2013','30','4800','1000','100','60');
+ERROR 1054 (42S22): Unknown column 'phone_number' in 'field list'
+mysql>
+mysql> insert into EMPLOYEES(emp_id,F_name,L_name ,email,telno,hire_date,job_id,salary,commission_pct,manager_id ,department_id) values ('1','anne','keza','keza@gmail.com','078686787','12/1/2013','30','4800','1000','100','60');
+ERROR 1054 (42S22): Unknown column 'department_id' in 'field list'
+mysql>  insert into EMPLOYEES(emp_id,F_name,L_name ,email,telno,hire_date,job_id,salary,commission_pct,manager_id ,department) values ('1','anne','keza','keza@gmail.com','078686787','12/1/2013','30','4800','1000','100','60');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql>  insert into EMPLOYEES(emp_id,F_name,L_name ,email,telno,hire_date,job_id,salary,commission_pct,manager_id ,department) values ('2','austin','cyiza','cyiza@gmail.com','078686784','12/1/2014','20','4600','1000','100','90');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql>  insert into EMPLOYEES(emp_id,F_name,L_name ,email,telno,hire_date,job_id,salary,commission_pct,manager_id ,department) values ('3','ange','mahoro','angee@gmail.com','0786867800','12/1/2013','21','5000','1300','101','70');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql>  insert into EMPLOYEES(emp_id,F_name,L_name ,email,telno,hire_date,job_id,salary,commission_pct,manager_id ,department) values ('4','erika','niyonshuti','erika@gmail.com','0786867801','12/1/2015','24','5600','5300','103','40');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql>  insert into EMPLOYEES(emp_id,F_name,L_name ,email,telno,hire_date,job_id,salary,commission_pct,manager_id ,department) values ('5','mike','gwiza','gwiza@gmail.com','0786867802','12/4/2012','24','5607','5380','100','80');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> select*from EMPLOYEES;
++--------+--------+------------+-----------------+------------+------------+--------+--------+----------------+------------+------------+
+| emp_id | f_name | l_name     | email           | telno      | hire_date  | job_id | salary | commission_pct | manager_id | department |
++--------+--------+------------+-----------------+------------+------------+--------+--------+----------------+------------+------------+
+|      1 | anne   | keza       | keza@gmail.com  | 078686787  | 0000-00-00 |     30 |   4800 |           1000 |        100 | 60         |
+|      2 | austin | cyiza      | cyiza@gmail.com | 078686784  | 0000-00-00 |     20 |   4600 |           1000 |        100 | 90         |
+|      3 | ange   | mahoro     | angee@gmail.com | 0786867800 | 0000-00-00 |     21 |   5000 |           1300 |        101 | 70         |
+|      4 | erika  | niyonshuti | erika@gmail.com | 0786867801 | 0000-00-00 |     24 |   5600 |           5300 |        103 | 40         |
+|      5 | mike   | gwiza      | gwiza@gmail.com | 0786867802 | 0000-00-00 |     24 |   5607 |           5380 |        100 | 80         |
++--------+--------+------------+-----------------+------------+------------+--------+--------+----------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select emp_id,f_name,l_name,salary from EMPLOYEES;
++--------+--------+------------+--------+
+| emp_id | f_name | l_name     | salary |
++--------+--------+------------+--------+
+|      1 | anne   | keza       |   4800 |
+|      2 | austin | cyiza      |   4600 |
+|      3 | ange   | mahoro     |   5000 |
+|      4 | erika  | niyonshuti |   5600 |
+|      5 | mike   | gwiza      |   5607 |
++--------+--------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select*from EMPLOYEES where manager-id="100";
+ERROR 1054 (42S22): Unknown column 'manager' in 'where clause'
+mysql> select*from EMPLOYEES where manager_id="100";
++--------+--------+--------+-----------------+------------+------------+--------+--------+----------------+------------+------------+
+| emp_id | f_name | l_name | email           | telno      | hire_date  | job_id | salary | commission_pct | manager_id | department |
++--------+--------+--------+-----------------+------------+------------+--------+--------+----------------+------------+------------+
+|      1 | anne   | keza   | keza@gmail.com  | 078686787  | 0000-00-00 |     30 |   4800 |           1000 |        100 | 60         |
+|      2 | austin | cyiza  | cyiza@gmail.com | 078686784  | 0000-00-00 |     20 |   4600 |           1000 |        100 | 90         |
+|      5 | mike   | gwiza  | gwiza@gmail.com | 0786867802 | 0000-00-00 |     24 |   5607 |           5380 |        100 | 80         |
++--------+--------+--------+-----------------+------------+------------+--------+--------+----------------+------------+------------+
+3 rows in set (0.01 sec)
+
+mysql> select*from EMPLOYEES where salary>=4800;
++--------+--------+------------+-----------------+------------+------------+--------+--------+----------------+------------+------------+
+| emp_id | f_name | l_name     | email           | telno      | hire_date  | job_id | salary | commission_pct | manager_id | department |
++--------+--------+------------+-----------------+------------+------------+--------+--------+----------------+------------+------------+
+|      1 | anne   | keza       | keza@gmail.com  | 078686787  | 0000-00-00 |     30 |   4800 |           1000 |        100 | 60         |
+|      3 | ange   | mahoro     | angee@gmail.com | 0786867800 | 0000-00-00 |     21 |   5000 |           1300 |        101 | 70         |
+|      4 | erika  | niyonshuti | erika@gmail.com | 0786867801 | 0000-00-00 |     24 |   5600 |           5300 |        103 | 40         |
+|      5 | mike   | gwiza      | gwiza@gmail.com | 0786867802 | 0000-00-00 |     24 |   5607 |           5380 |        100 | 80         |
++--------+--------+------------+-----------------+------------+------------+--------+--------+----------------+------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select*from EMPLOYEES where l_name="austin";
+Empty set (0.00 sec)
+
+mysql> select*from EMPLOYEES where f_name="austin";
++--------+--------+--------+-----------------+-----------+------------+--------+--------+----------------+------------+------------+
+| emp_id | f_name | l_name | email           | telno     | hire_date  | job_id | salary | commission_pct | manager_id | department |
++--------+--------+--------+-----------------+-----------+------------+--------+--------+----------------+------------+------------+
+|      2 | austin | cyiza  | cyiza@gmail.com | 078686784 | 0000-00-00 |     20 |   4600 |           1000 |        100 | 90         |
++--------+--------+--------+-----------------+-----------+------------+--------+--------+----------------+------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select*from EMPLOYEES where department IN(60,70,80);
++--------+--------+--------+-----------------+------------+------------+--------+--------+----------------+------------+------------+
+| emp_id | f_name | l_name | email           | telno      | hire_date  | job_id | salary | commission_pct | manager_id | department |
++--------+--------+--------+-----------------+------------+------------+--------+--------+----------------+------------+------------+
+|      1 | anne   | keza   | keza@gmail.com  | 078686787  | 0000-00-00 |     30 |   4800 |           1000 |        100 | 60         |
+|      3 | ange   | mahoro | angee@gmail.com | 0786867800 | 0000-00-00 |     21 |   5000 |           1300 |        101 | 70         |
+|      5 | mike   | gwiza  | gwiza@gmail.com | 0786867802 | 0000-00-00 |     24 |   5607 |           5380 |        100 | 80         |
++--------+--------+--------+-----------------+------------+------------+--------+--------+----------------+------------+------------+
+3 rows in set (0.00 sec)
